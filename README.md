@@ -1,2 +1,0 @@
-# Verex
-Created by Rork
