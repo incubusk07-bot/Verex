@@ -70,7 +70,6 @@
   "overrides": {
     "axios": "1.13.2",
     "@react-navigation/native": "7.3.16",
-    "@react-navigation/core": "7.21.12",
     "@react-navigation/elements": "2.9.38",
     "@ai-sdk/react": "2.0.107",
     "ai": "5.0.114",
