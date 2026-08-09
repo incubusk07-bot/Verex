@@ -1,4 +1,4 @@
-import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 
 import { base64ByteLength } from "@/utils/base64";
 
@@ -27,15 +27,15 @@ export async function resizeForUpload(
   maxBytes: number = DEFAULT_MAX_BYTES,
 ): Promise<{ base64: string; mimeType: "image/jpeg" }> {
   for (const step of LADDER) {
-    const context = ImageManipulator.manipulate(imageUri);
-    context.resize({ width: step.width });
-
-    const rendered = await context.renderAsync();
-    const saved = await rendered.saveAsync({
-      format: SaveFormat.JPEG,
-      compress: step.compress,
-      base64: true,
-    });
+    const saved = await manipulateAsync(
+      imageUri,
+      [{ resize: { width: step.width } }],
+      {
+        format: SaveFormat.JPEG,
+        compress: step.compress,
+        base64: true,
+      },
+    );
 
     if (saved.base64 && base64ByteLength(saved.base64) <= maxBytes) {
       return {
